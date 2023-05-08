@@ -1,51 +1,103 @@
 import 'package:flutter/material.dart';
-import 'package:mother/Hotel_page.dart';
-import 'package:mother/Fast food_page.dart';
-import 'package:mother/Restaurant_page.dart';
-import 'package:mother/inquire by phone_page.dart';
-import 'package:mother/Shopping_page.dart';
-import 'package:mother/Take away_page.dart';
-import 'package:mother/Shopping 2_page.dart';
-import 'package:mother/Go to Kamakura_page.dart';
-import 'package:mother/Ask recommendation_page.dart';
+import 'package:mother/1.Hotel/Hotel_page.dart';
+import 'package:mother/2.Restaurant/Restaurant.dart';
+import 'package:mother/3.Phone inquiries/Inquire by phone2.dart';
+import 'package:mother/4.Shopping/Shopping_page.dart';
+import 'package:mother/5.Food Takeaways/Take away_page.dart';
+import 'package:mother/6.Shopping2/Shopping 2_page.dart';
+import 'package:mother/7.Kamakura/Go to Kamakura_page.dart';
+import 'package:mother/8.Fast food/Fast food_page.dart';
 
-// B. main関数
-void main() {
-  runApp(MyApp());
-}
+import 'package:mother/9.Asking for/Ask recommendation_page.dart';
+import 'package:mother/Grammer/grammer_chart.dart';
 
-// D. StatelessWidgetを継承したクラス
+//デバイスごとのUI比重を調整するためのパッケージ
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+void main() => runApp(MyApp());
+
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          backgroundColor: Colors.white,
-        ),
-        home: Home()
+    //Set the fit size (Find your UI design, look at the dimensions of the device screen and fill it in,unit in dp)
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context , child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Onigiri',
+          // You can use the library anywhere in the app even in theme
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
+          ),
+          home: child,
+        );
+      },
+      child: Home(),
     );
   }
 }
 
-
 class Home extends StatelessWidget {
+  Widget buildButton(BuildContext context, String text, Widget page, double fontSize) {
+    return SizedBox(
+      width: 310,
+      height: 100,
+      child: ElevatedButton(
+        onPressed: () => navigateTo(context, page),
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void navigateTo(BuildContext context, Widget page) async {
+    await Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<List<dynamic>> buttonData = [
+      ['1.Hotel', HotelPage(), 30.0],
+      ['2.Restaurant', RestaurantPage(), 30.0],
+      ['3.Phone inquires', InquirebyphonePage2(), 30.0],
+      ['4.Shopping', Shopping(), 28.0],
+      ['5.Food Takeaways', TakeawayPage(), 30.0],
+      ['6.Shopping2', Shopping2Page(), 30.0],
+      ['7.Going to Kamakura', GotoKamakuraPage(), 26.0],
+      ['8.Fast-food', FastfoodPage(), 28.0],
+      ['9.Asking for recommendations', AskrecommendationPage(), 27.0],
+    ];
+
     return MaterialApp(
-      theme: ThemeData(
-        backgroundColor: Colors.white,
-      ),
-      home:  Scaffold(
-        // L. AppBar
+      theme: ThemeData(backgroundColor: Colors.white),
+      home: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          leading: Icon(Icons.menu_book),
-          title: const Text('Leran Japanese'),
-          actions: <Widget>[
+          leading: Icon(Icons.public),
+          title: const Text('9 situations for Travelers'),
+          actions: [
             IconButton(
               icon: Icon(Icons.more_vert),
-              onPressed: () {
-              },
+              onPressed: () {},
             ),
           ],
         ),
@@ -53,200 +105,38 @@ class Home extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 310,
-                  height: 60,
-                  child: ElevatedButton(
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HotelPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        '1.Hotel',style: TextStyle(fontSize: 24),
-                      )),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
+                for (var data in buttonData)
+                  ...[
+                    SizedBox(height: 25),
+                    buildButton(context, data[0] as String, data[1] as Widget, data[2] as double),
+                  ],
+                SizedBox(height: 25),
                 SizedBox(
                   width: 310,
-                  height: 60,
+                  height: 100,
                   child: ElevatedButton(
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => FastfoodPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        '2.Fast food',style: TextStyle(fontSize: 24),
-                      )),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 310,
-                  height: 60,
-                  child: ElevatedButton(
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => RestaurantPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        '3.Restaurant',style: TextStyle(fontSize: 24),
-                      )),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 310,
-                  height: 60,
-                  child: ElevatedButton(
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => InquirebyphonePage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        '4.Inquire by phone',style: TextStyle(fontSize: 24),
-                      )),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 310,
-                  height: 60,
-                  child: ElevatedButton(
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ShoppingPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        '5.Shopping',style: TextStyle(fontSize: 24),
-                      )),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 310,
-                  height: 60,
-                  child: ElevatedButton(
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TakeawayPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        '6.Take away',style: TextStyle(fontSize: 24),
-                      )),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 310,
-                  height: 60,
-                  child: ElevatedButton(
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Shopping2Page(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        '7.Shopping 2',style: TextStyle(fontSize: 24),
-                      )),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 310,
-                  height: 60,
-                  child: ElevatedButton(
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => GotoKamakuraPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        '8.Go to Kamakura',style: TextStyle(fontSize: 24),
-                      )),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 310,
-                  height: 60,
-                  child: ElevatedButton(
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AskrecommendationPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        '9.Ask recommendation',style: TextStyle(fontSize: 24),
-                      )),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 310,
-                  height: 60,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                        onPrimary: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.green,
+                      onPrimary: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
                       ),
-                      onPressed: ()async{
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AskrecommendationPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'Grammer PDF',style: TextStyle(fontSize: 24),
-                      )),
+                    ),
+                    onPressed: () => navigateTo(context, grammer()),
+                    child: Text(
+                      'Grammar PDF',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
-                SizedBox(
-                  height: 40,
-                ),
+                SizedBox(height: 25),
               ],
-        ),
+            ),
           ),
-      ),
+        ),
       ),
     );
   }
