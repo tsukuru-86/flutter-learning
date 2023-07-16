@@ -47,5 +47,16 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+
+	<!-- Permissions for picking from gallery or taking image from camera-->
+	<key>NSPhotoLibraryUsageDscription</key>
+	<string>App requires access to the photo library for picking pictures.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App requires access to the camera for taking pictures</string>
+
+	<!--For Storing Image into Gallery-->
+	<key>NSPhotoLibraryAddUsageDescripition</key>
+	<string>This app requires read and write access to the photo library.</string>
+
 </dict>
 </plist>
