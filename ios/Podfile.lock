@@ -50,7 +50,7 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - image_gallery_saver (2.0.2):
+  - gallery_saver (0.0.1):
     - Flutter
   - open_file (0.0.1):
     - Flutter
@@ -93,7 +93,7 @@ DEPENDENCIES:
   - flutter_downloader (from `.symlinks/plugins/flutter_downloader/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
-  - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
+  - gallery_saver (from `.symlinks/plugins/gallery_saver/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - pdf_render (from `.symlinks/plugins/pdf_render/ios`)
@@ -130,8 +130,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
   flutter_pdfview:
     :path: ".symlinks/plugins/flutter_pdfview/ios"
-  image_gallery_saver:
-    :path: ".symlinks/plugins/image_gallery_saver/ios"
+  gallery_saver:
+    :path: ".symlinks/plugins/gallery_saver/ios"
   open_file:
     :path: ".symlinks/plugins/open_file/ios"
   path_provider_foundation:
@@ -169,7 +169,7 @@ SPEC CHECKSUMS:
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
   flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  image_gallery_saver: cb43cc43141711190510e92c460eb1655cd343cb
+  gallery_saver: 9fc173c9f4fcc48af53b2a9ebea1b643255be542
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
