@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mother/colors.dart';
 import 'package:mother/1.Hotel/Confirming%20what%20you%20heard/Cwyh%20step2/Cwhy%20step2e.dart';
 import 'package:mother/1.Hotel/Confirming%20what%20you%20heard/Cwyh%20step2/step2c.dart';
+import 'package:mother/1.Hotel/Hotel_page.dart';
+import 'package:mother/colors.dart';
 import 'package:video_player/video_player.dart';
 
-class CwyhSTEP2d extends StatefulWidget{
+class CwyhSTEP2d extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<CwyhSTEP2d> {
-
   late VideoPlayerController controller;
 
   @override
@@ -24,45 +26,62 @@ class _HomeState extends State<CwyhSTEP2d> {
     controller.dispose();
   }
 
-  loadVideoPlayer(){
+  loadVideoPlayer() {
     controller = VideoPlayerController.asset('assets/videos/Hotel/S3-2d.mp4');
     controller.addListener(() {
       setState(() {});
     });
-    controller.initialize().then((value){
+    controller.initialize().then((value) {
       setState(() {});
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'STEP2-4',
+          'STEP2',
           style: TextStyle(
             fontSize: 20,
+            color: Colors.white,
           ),
         ),
+        backgroundColor: AppColors.turquoiseBlue,
         leading: IconButton(
-          icon: Icon(Icons.close),
+          icon: Icon(
+              Icons.close,
+              color: Colors.white,
+          ),
           onPressed: () {
-            Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
+            Navigator.of(context).pushReplacement(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return HotelPage();
+                },
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation, // アニメーションの進行に応じて不透明度を変更
+                    child: child,
+                  );
+                },
+              ),
+            );
           },
         ),
       ),
       body: Stack(
-        children : [
+        children: [
           Container(
             child: Column(
               children: [
                 Center(
                   child: controller.value.isInitialized
                       ? AspectRatio(
-                    aspectRatio: controller.value.aspectRatio,
-                    child: VideoPlayer(controller),
-                  )
+                          aspectRatio: controller.value.aspectRatio,
+                          child: VideoPlayer(controller),
+                        )
                       : const SizedBox.shrink(),
                 ),
               ],
@@ -74,10 +93,11 @@ class _HomeState extends State<CwyhSTEP2d> {
               margin: EdgeInsets.only(bottom: 30.0),
               child: IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
-                onPressed: ()async {
+                onPressed: () async {
                   await Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => CwyhSTEP2e(),
+                    MaterialPageRoute(
+                      builder: (context) => CwyhSTEP2e(),
                     ),
                   );
                 },
@@ -97,12 +117,15 @@ class _HomeState extends State<CwyhSTEP2d> {
                       pageBuilder: (context, animation, secondaryAnimation) {
                         return CwyhSTEP2c();
                       },
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
                         final Offset begin = Offset(-1.0, 0.0); // 左から右
                         final Offset end = Offset.zero;
-                        final Animatable<Offset> tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: Curves.easeInOut));
-                        final Animation<Offset> offsetAnimation = animation.drive(tween);
+                        final Animatable<Offset> tween =
+                            Tween(begin: begin, end: end)
+                                .chain(CurveTween(curve: Curves.easeInOut));
+                        final Animation<Offset> offsetAnimation =
+                            animation.drive(tween);
                         return SlideTransition(
                           position: offsetAnimation,
                           child: child,
@@ -134,7 +157,7 @@ class _HomeState extends State<CwyhSTEP2d> {
                   }
                   setState(() {});
                 },
-                color: Colors.blue,
+                color: AppColors.turquoiseBlue,
                 textColor: Colors.white,
                 shape: CircleBorder(),
               ),

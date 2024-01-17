@@ -1,31 +1,84 @@
 import 'package:flutter/material.dart';
+// Grammer screens imports
 import 'package:mother/Grammer/1 Noun.dart';
-import 'package:mother/Grammer/How to count.dart';
-import 'package:mother/Grammer/ThisThatHereThere.dart';
+import 'package:mother/Grammer/2 How to count.dart';
+import 'package:mother/Grammer/3 ThisThatHereThere.dart';
 import 'package:mother/Grammer/4 There is are.dart';
 import 'package:mother/Grammer/5 adjective.dart';
 import 'package:mother/Grammer/6 Verb Sentence.dart';
 import 'package:mother/Grammer/7 comb verb.dart';
 import 'package:mother/Grammer/8 want want to.dart';
 import 'package:mother/Grammer/9 naimasudicte.dart';
-import 'package:mother/Grammer/Gallery_test.dart';
+import 'package:mother/colors.dart';
+import 'package:mother/main.dart';
 
+class Grammer extends StatelessWidget {
+  Widget _buildButton(BuildContext context, String title, Widget targetPage,
+      {double fontSize = 24}) {
+    return Column(
+      children: [
+        SizedBox(height: 15),
+        SizedBox(
+          width: 310,
+          height: 85,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              side: BorderSide(color: Color(0xFF4593A0), width: 6),
+              primary: Colors.white,
+              onPrimary: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+            ),
+            onPressed: () async {
+              await Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    targetPage,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+              ));
+            },
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Color(0xFF4593A0),
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w800),
+            ),
+          ),
+        ),
+        SizedBox(height: 15),
+      ],
+    );
+  }
 
-class grammer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Grammer chart',
-          style: TextStyle(
-            fontSize: 25,
-          ),
-        ),
+            'Grammer chart',
+            style: TextStyle(
+                fontSize: 25,
+                color: Colors.white,
+            )),
+        backgroundColor: Color(0xFF4593A0),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+          ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacement(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) => Home(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) =>
+                        FadeTransition(opacity: animation, child: child),
+              ),
+            );
           },
         ),
       ),
@@ -33,367 +86,21 @@ class grammer extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 80,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Noun3(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Noun Sentence\nBASIC RULES',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 24,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 80,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => count(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'How to count',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 24,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 80,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TTHT(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'This/That/Here/There',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 22,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 80,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => isare(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'There is/are\nBASIC RULES',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 24,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 80,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => adjective(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Adjective Sentence\nBASIC RULES',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 24,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 80,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Verb(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Verb Sentence\nBASIC RULES',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 24,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 80,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => comb(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Conbination of verbs and particles',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 22,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 80,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => want(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      '"I want N" "I want to V" BASIC RULES',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 22,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 100,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => naimasudicte(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'masu-form\ndicitonaru-form\nte-form',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 24,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 310,
-                height: 80,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(
-                        color: Colors.blue,
-                        width: 6,
-                      ),
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    //ここにテキスト？の画面への画面遷移を置く
-                    onPressed: ()async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Gallery1(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'PDF test',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 22,
-                        fontWeight:FontWeight.w800,
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 30,
-              ),
+              _buildButton(context, 'Noun Sentence', Noun()),
+              _buildButton(context, 'How to count', count()),
+              _buildButton(context, 'This/That/Here/There', TTHT(),
+                  fontSize: 22),
+              _buildButton(context, 'There is/are', isare()),
+              _buildButton(context, 'Adjective Sentence', adjective()),
+              _buildButton(context, 'Verb Sentence', Verb()),
+              _buildButton(
+                  context, 'Conbination of verbs and particles', comb(),
+                  fontSize: 22),
+              _buildButton(context, '"I want N" \n"I want to V"', want(),
+                  fontSize: 20),
+              _buildButton(context, 'masu-form\ndicitionary-form\nte-form',
+                  naimasudicte(),
+                  fontSize: 20),
             ],
           ),
         ),

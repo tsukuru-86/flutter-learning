@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
@@ -58,8 +58,17 @@ dependencies:
   share_extend: ^2.0.0
   gallery_saver: ^2.3.2
   pdf_render: ^1.4.0
+  image_gallery_saver: '^2.0.3'
+  shared_preferences: ^2.2.2
+  purchases_flutter: ^6.3.0
+  flutter_launcher_icons: any
+  device_info_plus: ^3.2.4
 
 
+flutter_icons:
+  ios: true
+  image_path: "lib/assets/icon/1024.png" # Used for both iOS and Android if not specified otherwise
+    # Android configuration is not needed for iOS only
 
 dev_dependencies:
   flutter_test:
@@ -134,6 +143,7 @@ flutter:
     - assets/videos/Restaurant/S5-3.mp4
     - assets/videos/Restaurant/S6-1.mp4
     - assets/videos/Restaurant/S6-2-1.mp4
+    - assets/videos/Restaurant/S6-2-1-check.mp4
     - assets/videos/Restaurant/S6-2-2.mp4
     - assets/videos/Restaurant/S6-2-3.mp4
     - assets/videos/Restaurant/S6-2-4.mp4
@@ -141,6 +151,7 @@ flutter:
     - assets/videos/Restaurant/S6-3.mp4
     - assets/videos/Restaurant/S7-1.mp4
     - assets/videos/Restaurant/S7-2-1.mp4
+    - assets/videos/Restaurant/S7-2-2.mp4
     - assets/videos/Restaurant/S7-2-3.mp4
     - assets/videos/Restaurant/S7-2-4.mp4
     - assets/videos/Restaurant/S7-2-5.mp4
@@ -150,13 +161,14 @@ flutter:
     - assets/videos/Restaurant/S8-2-2.mp4
     - assets/videos/Restaurant/S8-2-3.mp4
     - assets/videos/Restaurant/S8-2-4.mp4
+    - assets/videos/Restaurant/S8-2-4-check.mp4
     - assets/videos/Restaurant/S8-2-5.mp4
     - assets/videos/Restaurant/S8-2-6.mp4
     - assets/videos/Restaurant/S8-3.mp4
     - assets/videos/Phone/S9-1.mp4
     - assets/videos/Phone/S9-2-1.mp4
     - assets/videos/Phone/S9-2-2.mp4
-    - assets/videos/Phone/S9-2-3.mp4
+    - assets/videos/Phone/S9-2-3-check.mp4
     - assets/videos/Phone/S9-2-4.mp4
     - assets/videos/Phone/S9-2-5.mp4
     - assets/videos/Phone/S9-3.mp4
@@ -173,6 +185,7 @@ flutter:
     - assets/videos/Shopping/S12-1.mp4
     - assets/videos/Shopping/S12-2-1.mp4
     - assets/videos/Shopping/S12-2-1-check.mp4
+    - assets/videos/Shopping/S12-2-2.mp4
     - assets/videos/Shopping/S12-2-3.mp4
     - assets/videos/Shopping/S12-2-4.mp4
     - assets/videos/Shopping/S12-2-5.mp4
@@ -278,6 +291,7 @@ flutter:
     - assets/videos/Kamakura/S23-2-7.mp4
     - assets/videos/Kamakura/S23-2-8.mp4
     - assets/videos/Kamakura/S23-2-8-check.mp4
+    - assets/videos/Kamakura/S23-2-9.mp4
     - assets/videos/Kamakura/S23-3.mp4
     - assets/videos/Kamakura/S24-1.mp4
     - assets/videos/Kamakura/S24-2-1.mp4
@@ -325,6 +339,7 @@ flutter:
     - assets/videos/Recommendations/S28-2-7.mp4
     - assets/videos/Recommendations/S28-2-8.mp4
     - assets/videos/Recommendations/S28-2-9.mp4
+    - assets/videos/Recommendations/S28-3.mp4
     - assets/videos/Recommendations/S29-1.mp4
     - assets/videos/Recommendations/S29-2-1.mp4
     - assets/videos/Recommendations/S29-2-2.mp4
@@ -360,19 +375,76 @@ flutter:
     - assets/videos/Recommendations/S30-2-19.mp4
     - assets/videos/Recommendations/S30-2-20.mp4
     - assets/videos/Recommendations/S30-3.mp4
-    - assets/pdf/1 Nou Sentence.pdf
-    - assets/pdf/2 How to count.pdf
-    - assets/pdf/3 ThisThatHereThere.pdf
-    - assets/pdf/4 there is are.pdf
-    - assets/pdf/5 Adjective.pdf
-    - assets/pdf/6 Verb Sentence.pdf
-    - assets/pdf/7 comb verb&particles.pdf
-    - assets/pdf/8 want want to.pdf
-    - assets/pdf/9 nai masu dic te.pdf
-    - assets/images/DSC_6678.JPG
+    - assets/images/1 Noun.png
+    - assets/images/2 How to count.png
+    - assets/images/3 ThisThatHereThere.png
+    - assets/images/4 This is:are.png
+    - assets/images/5 Adj.png
+    - assets/images/6 Verb.png
+    - assets/images/7 combination.png
+    - assets/images/8 want:want to.png
+    - assets/images/9 nai:masu:dic:te.png
+    - assets/images/DSC_6678.png
+    - assets/images/introduction_1.png
+    - assets/images/introduction_2.png
+    - assets/images/introduction_3.png
+    - assets/images/introduction_4.png
+    - assets/images/introduction_5.png
+    - assets/images/introduction_6.png
+    - assets/images/introduction_7.png
+    - assets/images/introduction_8.png
+    - assets/images/introduction_9.png
+    - assets/images/introduction_10.png
+    - assets/images/introduction_11.png
+    - assets/images/introduction_12.png
+    - assets/images/introduction_13.png
+    - assets/images/introduction_14.png
+    - assets/images/introduction_15.png
+    - assets/images/introduction_16.png
+    - assets/images/introduction_17.png
+    - assets/icon/onigiri.png
+    - assets/videos/Numbers/1-10/Numbers1-10-1.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-2.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-3.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-4.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-5.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-6.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-7.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-8.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-9.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-10.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-11.mp4
+    - assets/videos/Numbers/1-10/Numbers1-10-12.mp4
+    - assets/videos/Numbers/10-100/Numbers10-100-1.mp4
+    - assets/videos/Numbers/10-100/Numbers10-100-2.mp4
+    - assets/videos/Numbers/10-100/Numbers10-100-3.mp4
+    - assets/videos/Numbers/10-100/Numbers10-100-4.mp4
+    - assets/videos/Numbers/10-100/Numbers10-100-5.mp4
+    - assets/videos/Numbers/10-100/Numbers10-100-6.mp4
+    - assets/videos/Numbers/10-100/Numbers10-100-7.mp4
+    - assets/videos/Numbers/100-1000/Numbers100-1000-1.mp4
+    - assets/videos/Numbers/100-1000/Numbers100-1000-2.mp4
+    - assets/videos/Numbers/100-1000/Numbers100-1000-3.mp4
+    - assets/videos/Numbers/100-1000/Numbers100-1000-4.mp4
+    - assets/videos/Numbers/100-1000/Numbers100-1000-5.mp4
+    - assets/videos/Numbers/100-1000/Numbers100-1000-6.mp4
+    - assets/videos/Numbers/100-1000/Numbers100-1000-7.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-1.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-2.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-3.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-4.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-5.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-6.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-7.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-8.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-9.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-10.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-11.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-12.mp4
+    - assets/videos/Numbers/1000-100000/Numbers1000-100000-13.mp4
+    - assets/icon/1024.png
 
-
-  # An image asset can refer to one or more resolution-specific "variants", see
+      # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
   # For details regarding adding assets from package dependencies, see

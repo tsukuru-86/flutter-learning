@@ -1,36 +1,95 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-
-/// Represents Homepage for Navigation
+import 'package:flutter/services.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:mother/colors.dart';
 
 class comb extends StatefulWidget {
+  const comb({Key? key}) : super(key: key);
+
   @override
-  _HomePage createState() => _HomePage();
+  State<comb> createState() => combPageState();
 }
 
-class _HomePage extends State<comb> {
-  @override
-  void initState() {
-    super.initState();
+class combPageState extends State<comb> {
+  final String imagePath = 'assets/images/7 combination.png';
+
+  Future<void> _saveImage() async {
+    // Load image from assets folder
+    final ByteData data = await rootBundle.load(imagePath);
+    final Uint8List bytes = data.buffer.asUint8List();
+
+    // Save image to device
+    final result = await ImageGallerySaver.saveImage(bytes);
+    print('Image saved: $result');
+  }
+
+  Future<void> _confirmAndSaveImage() async {
+    final bool confirmed = await showCupertinoDialog<bool>(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: Text('Confirmation'),
+              content: Text('Download image now?',
+                  style: TextStyle(color: Colors.black)),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop(false); // return false
+                  },
+                ),
+                CupertinoDialogAction(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop(true); // return true
+                  },
+                ),
+              ],
+            );
+          },
+        ) ??
+        false; // return false if dialog is dismissed
+
+    if (confirmed) {
+      await _saveImage();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Combination of verbs and particles'),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.of(context).pop();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+            'Combination',
+            style: TextStyle(
+              color: Colors.white,
+            )),
+        backgroundColor: Color(0xFF4593A0),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.download_rounded,
+              color: Colors.white,
+            ),
+            onPressed: () async {
+              // Describe the action when the button is pressed
+              await _confirmAndSaveImage();
             },
           ),
+        ],
+        leading: IconButton(
+          icon: Icon(
+              Icons.close,
+              color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: SfPdfViewer.asset(
-          'assets/pdf/7 comb verb&particles.pdf',
-        ),
+      ),
+      body: Center(
+        child: Image.asset(imagePath),
       ),
     );
   }

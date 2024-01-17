@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
-
-import 'package:mother/7.Kamakura/Dose this train go to Shinjuku/step1.dart';
-import 'package:mother/7.Kamakura/Dose this train go to Shinjuku/step2/step2a.dart';
-import 'package:mother/7.Kamakura/Dose this train go to Shinjuku/step3.dart';
-
-import 'package:mother/7.Kamakura/How do I get to the Big buddha statue/step1.dart';
-import 'package:mother/7.Kamakura/How do I get to the Big buddha statue/step2/step2a.dart';
-import 'package:mother/7.Kamakura/How do I get to the Big buddha statue/step3.dart';
-
 import 'package:mother/8.Fast food/Could you say that again/step1.dart';
 import 'package:mother/8.Fast food/Could you say that again/step2/step2a.dart';
 import 'package:mother/8.Fast food/Could you say that again/step3.dart';
-
 import 'package:mother/8.Fast food/Teriyaki burger/step1.dart';
 import 'package:mother/8.Fast food/Teriyaki burger/step2/step2a.dart';
 import 'package:mother/8.Fast food/Teriyaki burger/step3.dart';
+import 'package:mother/colors.dart';
 
+import '../main.dart';
 
 class FastfoodPage extends StatelessWidget {
   get child => null;
@@ -29,27 +20,24 @@ class FastfoodPage extends StatelessWidget {
           '8.Fast-food',
           style: TextStyle(
             fontSize: 25,
+            color: Colors.white,
           ),
         ),
+        backgroundColor: AppColors.turquoiseBlue,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+          ),
           onPressed: () {
             Navigator.of(context).pushReplacement(
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
                   return Home();
                 },
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                  final Offset begin = Offset(-1.0, 0.0); // 左から右
-                  final Offset end = Offset.zero;
-                  final Animatable<Offset> tween = Tween(begin: begin, end: end)
-                      .chain(CurveTween(curve: Curves.easeInOut));
-                  final Animation<Offset> offsetAnimation = animation.drive(tween);
-                  return SlideTransition(
-                    position: offsetAnimation,
-                    child: child,
-                  );
-                  //したから上にスライドする画面遷移
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(opacity: animation, child: child);
                 },
               ),
             );
@@ -61,24 +49,28 @@ class FastfoodPage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 20),
-              //Check into a Hotel↓
               _buildStepCard(
-                '1.Could you say that again?',
-                [
-                  _buildStepButton('STEP1', () => Navigator.push(context, MaterialPageRoute(builder: (context) => againSTEP1()))),
-                  _buildStepButton('STEP2', () => Navigator.push(context, MaterialPageRoute(builder: (context) => againSTEP2a()))),
-                  _buildStepButton('STEP3', () => Navigator.push(context, MaterialPageRoute(builder: (context) => againSTEP3()))),
-                ],
-              ),
-              //Please and Thank you↓
+                  '1.Could you say that again?',
+                  [
+                    _buildStepButton(
+                        'STEP1', context, Color(0xFF00afcc), againSTEP1()),
+                    _buildStepButton(
+                        'STEP2', context, Color(0xFF4593A0), againSTEP2a()),
+                    _buildStepButton(
+                        'STEP3', context, Color(0xFF476b6b), againSTEP3()),
+                  ],
+                  context),
               _buildStepCard(
-                '2.Teriyaki burger',
-                [
-                  _buildStepButton('STEP1', () => Navigator.push(context, MaterialPageRoute(builder: (context) => teriyakiSTEP1()))),
-                  _buildStepButton('STEP2', () => Navigator.push(context, MaterialPageRoute(builder: (context) => teriyakiSTEP2a()))),
-                  _buildStepButton('STEP3', () => Navigator.push(context, MaterialPageRoute(builder: (context) => teriyakiSTEP3()))),
-                ],
-              ),
+                  '2.Teriyaki burger',
+                  [
+                    _buildStepButton(
+                        'STEP1', context, Color(0xFF00afcc), teriyakiSTEP1()),
+                    _buildStepButton(
+                        'STEP2', context, Color(0xFF4593A0), teriyakiSTEP2a()),
+                    _buildStepButton(
+                        'STEP3', context, Color(0xFF476b6b), teriyakiSTEP3()),
+                  ],
+                  context),
             ],
           ),
         ),
@@ -87,13 +79,17 @@ class FastfoodPage extends StatelessWidget {
   }
 }
 
-Widget _buildStepCard(String title, List<Widget> buttons) {
+Widget _buildStepCard(
+    String title, List<Widget> buttons, BuildContext context) {
+  double width = MediaQuery.of(context).size.width * 0.84;
+
   return Container(
+    width: width,
     margin: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
     decoration: BoxDecoration(
       border: Border.all(
-        color: Colors.blue,
+        color: AppColors.turquoiseBlue,
         width: 6,
       ),
       borderRadius: BorderRadius.circular(15),
@@ -107,26 +103,37 @@ Widget _buildStepCard(String title, List<Widget> buttons) {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 27,
-              color: Colors.blue,
+              color: AppColors.turquoiseBlue,
               fontWeight: FontWeight.w800,
             ),
           ),
         ),
-        ...buttons.map((button) => Container(margin: EdgeInsets.all(10), child: button)),
+        ...buttons.map(
+            (button) => Container(margin: EdgeInsets.all(10), child: button)),
       ],
     ),
   );
 }
 
-Widget _buildStepButton(String title, VoidCallback onPressed) {
+Widget _buildStepButton(
+    String title, BuildContext context, Color color, Widget targetPage) {
   return InkWell(
-    onTap: onPressed,
+    onTap: () {
+      Navigator.of(context).push(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => targetPage,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        ),
+      );
+    },
     child: Container(
-      height: 90,
-      width: 190,
+      height: 75,
+      width: 180,
       decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.all(Radius.elliptical(200, 100)),
+        color: color, // Use the passed color
+        borderRadius: BorderRadius.all(Radius.elliptical(100, 100)),
       ),
       child: Center(
         child: Text(

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mother/colors.dart';
 import 'package:mother/1.Hotel/Confirming%20what%20you%20heard/Cwyh%20step2/Cwyh%20step2a.dart';
+import 'package:mother/1.Hotel/Hotel_page.dart';
+import 'package:mother/colors.dart';
 import 'package:video_player/video_player.dart';
 
-
-class CwyhSTEP1 extends StatefulWidget{
+class CwyhSTEP1 extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<CwyhSTEP1> {
-
   late VideoPlayerController controller;
 
   @override
@@ -24,45 +25,62 @@ class _HomeState extends State<CwyhSTEP1> {
     controller.dispose();
   }
 
-  loadVideoPlayer(){
+  loadVideoPlayer() {
     controller = VideoPlayerController.asset('assets/videos/Hotel/S3-1.mp4');
     controller.addListener(() {
       setState(() {});
     });
-    controller.initialize().then((value){
+    controller.initialize().then((value) {
       setState(() {});
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text(
           'STEP1',
           style: TextStyle(
             fontSize: 20,
+            color: Colors.white,
           ),
         ),
+        backgroundColor: AppColors.turquoiseBlue,
         leading: IconButton(
-          icon: Icon(Icons.close),
+          icon: Icon(
+              Icons.close,
+              color: Colors.white,
+          ),
           onPressed: () {
-            Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
+            Navigator.of(context).pushReplacement(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return HotelPage();
+                },
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation, // アニメーションの進行に応じて不透明度を変更
+                    child: child,
+                  );
+                },
+              ),
+            );
           },
         ),
       ),
       body: Stack(
-        children : <Widget> [
+        children: <Widget>[
           Container(
             child: Column(
               children: [
                 Center(
                   child: controller.value.isInitialized
                       ? AspectRatio(
-                    aspectRatio: controller.value.aspectRatio,
-                    child: VideoPlayer(controller),
-                  )
+                          aspectRatio: controller.value.aspectRatio,
+                          child: VideoPlayer(controller),
+                        )
                       : const SizedBox.shrink(),
                 ),
               ],
@@ -76,7 +94,8 @@ class _HomeState extends State<CwyhSTEP1> {
                 onPressed: () async {
                   await Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => CwyhSTEP2a(),
+                    MaterialPageRoute(
+                      builder: (context) => CwyhSTEP2a(),
                     ),
                   );
                 },
@@ -91,6 +110,7 @@ class _HomeState extends State<CwyhSTEP1> {
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w700,
+                color: Colors.black, // この行を追加
               ),
             ),
           ),
@@ -112,7 +132,7 @@ class _HomeState extends State<CwyhSTEP1> {
                   }
                   setState(() {});
                 },
-                color: Colors.blue,
+                color: AppColors.turquoiseBlue,
                 textColor: Colors.white,
                 shape: CircleBorder(),
               ),
